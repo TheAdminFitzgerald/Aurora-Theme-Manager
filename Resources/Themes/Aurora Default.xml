@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AuroraConfig>
+  <Colours>
+
+    <!-- General Colours -->
+    <Background R="12" G="12" B="12"/>
+    <ButtonColour R="12" G="12" B="12"/>
+    <StandardTextColour R="220" G="220" B="220"/>
+    <TextEditColour R="90" G="200" B="90"/>
+    <PositiveColour R="90" G="200" B="90"/>
+    <TextHighlightColour R="0" G="230" B="230"/>
+    <IconColour R="220" G="220" B="220"/>
+    <ToolbarButtonColour R="23" G="26" B="39"/>
+
+    <!-- Tactical Map Bodies -->
+    <TacMapSystemBodyColour R="128" G="128" B="128"/>
+    <TacMapBodyNameColour R="80" G="150" B="80"/>
+    <GasGiantColour R="180" G="100" B="200"/>
+    <CometColour R="200" G="210" B="235"/>
+    <TacMapOrbitColour R="128" G="128" B="128" A="128"/>
+    <ColonyCostLessThanTwoColour R="60" G="90" B="255"/>
+    <ColonyCostLessThanThreeColour R="0" G="200" B="255"/>
+    <ColonyCostLessThanFiveColour R="170" G="85" B="25"/>
+    <TacMapCometOutlineColour R="100" G="180" B="180"/>
+
+    <!-- Tactical Map Other Astronomical -->
+    <JumpPointColour R="235" G="140" B="0"/>
+    <TacMapLagrangePointColour R="225" G="130" B="0"/>
+    <TacMapSurveyLocationColour R="245" G="222" B="179"/>
+    <TacMapAetherGateColour R="220" G="20" B="60"/>
+    <TacMapRiftOutlineColour R="75" G="0" B="130"/>
+    <TacMapRiftCentreColour R="0" G="0" B="0"/>
+
+    <!-- Tactical Map Artifical Objects -->
+    <TacMapDeepSpacePopColour R="255" G="255" B="0"/>
+    <TacMapFleetColour R="200" G="200" B="150"/>
+    <TacMapSalvoColour R="164" G="200" B="225"/>
+    <TacMapCivilianColour R="100" G="180" B="180"/>
+    <WreckColour R="225" G="130" B="0"/>
+    <TacMapWaypointColour R="238" G="130" B="238"/>
+    <TacMapMDPacketColour R="220" G="220" B="220"/>
+    <TacMapLifepodColour R="255" G="215" B="0"/>
+
+    <!-- Tactical Map Range Circles -->
+    <TacMapActiveSensorColour R="176" G="226" B="255"/>
+    <TacMapThermalSensorColour R="240" G="128" B="128"/>
+    <TacMapEMSensorColour R="216" G="191" B="216"/>
+    <TacMapELINTSensorColour R="240" G="248" B="255"/>
+    <TacMapFireControlColour R="238" G="220" B="130"/>
+    <TacMapWeaponRangeColour R="255" G="185" B="15"/>
+    <TacMapAlienSensorColour R="255" G="0" B="0"/>
+
+    <!-- Tactical Map Body Circles and Lines -->
+    <TacMapSurveyedColour R="180" G="180" B="180"/>
+    <TacMapMineralsColour R="255" G="255" B="0"/>
+    <TacMapColonyColour R="80" G="150" B="80"/>
+    <TacMapDistanceLineColour R="0" G="128" B="0"/>
+    <TacticalScaleColour R="80" G="150" B="80"/>
+
+    <!-- Galactic Map System Icons -->
+    <GalMapSystemIconColour R="0" G="100" B="0"/>
+    <GalMapSystemOutlineColour R="0" G="200" B="0"/>
+    <GalMapSystemSelectedColour R="0" G="200" B="0"/>
+    <GalMapSupernovaColour R="220" G="220" B="220"/>
+    <GalMapBlackHoleColour R="128" G="0" B="128"/>
+    <GalMapCometsColour R="200" G="210" B="235"/>
+
+    <!-- Galactic Map Circles -->	
+    <GalMapNavalHQColour R="220" G="220" B="0"/>
+    <GalMapSurveyIncompleteColour R="200" G="0" B="0"/>
+    <GalMapMaintenanceLocationColour R="0" G="191" B="255"/>
+    <GalMapRestrictedColour R="200" G="0" B="180"/>
+    <GalMapGroundSurveyColour R="176" G="196" B="222"/>
+    <GalMapMineralSearchColour R="143" G="188" B="143"/>
+    <GalMapDormantJPColour R="220" G="220" B="0"/>
+
+    <!-- Galactic Map Lines -->	
+    <GalMapJumpPointConnectionsColour R="0" G="180" B="0" A="96"/>
+    <GalMapStabilisedConnectionsColour R="210" G="120" B="0"/>
+    <GalMapMultiSystemSelectColour R="200" G="0" B="0"/>
+
+    <!-- Non-Hostile Relations -->
+    <NeutralColour R="144" G="238" B="144"/>
+    <FriendlyColour R="152" G="251" B="152"/>
+    <AlliedColour R="34" G="139" B="34"/>
+
+    <!-- original red (255, 0, 0) -->
+    <HostileColour R="220" G="0" B="0"/>
+    <CriticalColour R="220" G="0" B="0"/>
+    <ArmourDamagedColour R="220" G="0" B="0"/>
+    <AlienComponentColour R="220" G="0" B="0"/>
+    <JumpPointAlienColour R="220" G="0" B="0"/>
+
+    <!-- original orange or close (255, 165, 0) -->
+    <WarningColour R="235" G="140" B="0"/>
+    <ObsoleteColour R="235" G="140" B="0"/>
+    <MatchingComponentColour R="235" G="140" B="0"/>
+    <NoResearchColour R="235" G="140" B="0"/>
+    <SupportedFormationColour R="235" G="140" B="0"/>
+
+    <!-- original light green (128, 255, 128) -->
+    <NavalAdminCommandColour R="90" G="200" B="90"/> 
+    <ComponentTechDataColour R="90" G="200" B="90"/>
+    <GroundForcesOrganisationColour R="90" G="200" B="90"/> 
+    <CivilianShippingLineColour R="90" G="200" B="90"/> 
+    <OrdnanceSeriesColour R="90" G="200" B="90"/>
+
+    <!-- original lime green (50, 205, 50) -->
+    <PopulatedColonyColour R="100" G="220" B="100"/>
+
+    <!-- original cyan (0, 255, 255) -->
+    <NavalSubFleetColour R="0" G="220" B="220"/> 
+    <NavalSquadronColour R="0" G="220" B="220"/> 
+    <OtherColonyColour R="0" G="220" B="220"/>
+    <CMCPurchaseColonyColour R="0" G="220" B="220"/>
+    <ComponentResearchColour R="0" G="220" B="220"/>
+    <PrototypeComponentColour R="0" G="220" B="220"/>
+
+    <!-- original magenta (255, 0, 255) -->
+    <PrisonerColour R="220" G="0" B="220"/>
+
+    <!-- original white or close (255, 255, 255) -->
+    <ArmourColour R="245" G="245" B="245"/>
+
+    <MiningColonyColour R="60" G="179" B="113"/>
+    <Map3DSystemIconColour R="220" G="220" B="255"/>  
+    <SupportingFormationColour R="135" G="206" B="250"/>
+
+    <!-- Order of Battle Chart -->
+    <OrgChartInfantryColour R="70" G="160" B="70"/>
+    <OrgChartMechanisedColour R="60" G="135" B="95"/>
+    <OrgChartArmourColour R="240" G="220" B="0"/>
+    <OrgChartReconnaissanceColour R="60" G="160" B="170"/>
+    <OrgChartArtilleryColour R="210" G="30" B="30"/>
+    <OrgChartAirDefenceColour R="210" G="90" B="30"/>
+    <OrgChartOrbitalColour R="90" G="120" B="200"/>
+    <OrgChartEngineerColour R="120" G="120" B="120"/>
+    <OrgChartSpecialistColour R="140" G="100" B="190"/>
+    <OrgChartSupportColour R="200" G="200" B="200"/>
+    <OrgChartSupplyColour R="150" G="90" B="30"/>
+    <OrgChartGenericColour R="180" G="180" B="180"/>
+    <OrgChartIconColour R="0" G="0" B="0"/>
+      
+    <NavalFleetBoxColour R="0" G="255" B="255"/>
+    <NavalSubFleetBoxColour R="80" G="160" B="200"/>
+
+  </Colours>
+  <ButtonStyle>
+    <FlatStyle>Standard</FlatStyle>
+    <BorderSize>0</BorderSize>
+  </ButtonStyle>
+  <ToolbarButtonStyle>
+    <FlatStyle>Flat</FlatStyle>
+    <BorderSize>2</BorderSize>
+  </ToolbarButtonStyle>
+  <MapDisplay>
+    <FontFamily>Microsoft Sans Serif</FontFamily>
+    <!-- <FontFamily>Segoe UI</FontFamily> -->
+    <!-- <FontFamily>Arial</FontFamily> -->
+    <!-- <FontFamily>Calibri</FontFamily> -->
+    <!-- <FontFamily>Verdana</FontFamily> -->
+  </MapDisplay>
+  <EventLog>
+    <!-- Events from this many recent days are always saved. -->
+    <!-- Older events are saved, newest first, up to a total of 10,000. -->
+    <MinimumSaveDays>90</MinimumSaveDays>
+  </EventLog>
+</AuroraConfig>

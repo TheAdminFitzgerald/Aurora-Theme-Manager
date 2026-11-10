@@ -1,0 +1,102 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>AuroraThemeManager.Program</StartupObject>
+    <RootNamespace>AuroraThemeManager</RootNamespace>
+    <AssemblyName>ATM</AssemblyName>
+    <ProjectGuid>{6F1D3C2A-8E47-4B5A-9C13-2D7E0F9A4B61}</ProjectGuid>
+    <LangVersion>latest</LangVersion>
+    <Deterministic>true</Deterministic>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <WarningLevel>4</WarningLevel>
+    <Version>3.3.0</Version>
+    <Product>Aurora Theme Manager</Product>
+    <AssemblyTitle>Aurora Theme Manager</AssemblyTitle>
+    <Description>Edits Aurora 4X's AuroraConfig.xml and toolbar icons</Description>
+    <Copyright>Copyright © 2026 Scott Carter</Copyright>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <ApplicationIcon>Resources/Icons/aurora-4x-icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DebugType>full</DebugType>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="AuroraConfig.cs" />
+    <Compile Include="AuroraDefaults.cs" />
+    <Compile Include="IconCatalog.cs" />
+    <Compile Include="IconGrid.cs" />
+    <Compile Include="OOBSymbols.cs" />
+    <Compile Include="AppIcon.cs" />
+    <Compile Include="ColorPicker.cs" />
+    <Compile Include="Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.Layout.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.Icons.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PreviewForm.cs" />
+    <Compile Include="ThemePreview.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ThemePreview.Windows.cs">
+      <DependentUpon>ThemePreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThemePreview.Maps.cs">
+      <DependentUpon>ThemePreview.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/Icons/aurora-4x-icon.ico" LogicalName="AuroraThemeManager.Resources.Icons.aurora-4x-icon.ico" />
+    <EmbeddedResource Include="Resources/OOB/*.svg" LogicalName="AuroraThemeManager.Resources.OOB.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Resources/Themes/*.xml" LogicalName="AuroraThemeManager.Resources.Themes.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Settings.resx" />
+  </ItemGroup>
+
+  <Import Project="Deploy.local.props" Condition="Exists('Deploy.local.props')" />
+
+  <Target Name="Deploy" AfterTargets="Build" Condition="'$(Configuration)' == 'Release' And '$(DeployDirs)' != ''">
+    <ItemGroup>
+      <_DeployDir Include="$(DeployDirs)" />
+    </ItemGroup>
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="%(_DeployDir.Identity)" Retries="2" RetryDelayMilliseconds="2000" />
+    <Message Importance="high" Text="Copied $(TargetFileName) to %(_DeployDir.Identity)" />
+  </Target>
+</Project>
