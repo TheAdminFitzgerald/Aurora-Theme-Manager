@@ -16,18 +16,17 @@ namespace AuroraThemeManager
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Log.Info("Starting " + Assembly.GetExecutingAssembly().GetName().Version);
-
             string auroraPath = Path.Combine(ToolDirectory, "Aurora.exe");
             if (!File.Exists(auroraPath))
             {
-                Log.Error("No Aurora.exe in " + ToolDirectory);
                 MessageBox.Show(
                     "ATM.exe must be in the same folder as Aurora.exe.\n\n"
                     + "There is no Aurora.exe in " + ToolDirectory + ".",
                     AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 1;
             }
+
+            Log.Info("Starting " + Assembly.GetExecutingAssembly().GetName().Version);
 
             try
             {
