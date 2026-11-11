@@ -540,7 +540,7 @@ namespace AuroraThemeManager
         /// <summary>A marker dot in the middle of a system with its count beside it, both inside the circle.</summary>
         private void Count(MapCanvas m, PointF p, string color, int count, string title, string tip)
         {
-            var spot = new PointF(p.X - m.U(1.2f), p.Y);
+            var spot = p;
             m.Marker(spot, Mark.Dot, color, Color.Green, title, tip, 0.8f);
             m.Label(count.ToString(System.Globalization.CultureInfo.InvariantCulture), spot, Side.Right, m.MarkRadius(0.8f) - m.U(0.4f),
                 "StandardTextColour", Color.White, "Count", "Marker counts.");
