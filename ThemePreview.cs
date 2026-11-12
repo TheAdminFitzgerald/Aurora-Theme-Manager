@@ -278,6 +278,7 @@ namespace AuroraThemeManager
                 b.Size = r.Size;
                 b.FlatStyle = ParseFlatStyle(style);
                 b.FlatAppearance.BorderSize = style == null ? 1 : Math.Max(0, style.BorderSize);
+                b.FlatAppearance.BorderColor = ColorOf("Background", Color.Black);
                 b.BackColor = face;
                 b.ForeColor = text;
                 b.Font = font;
@@ -303,7 +304,7 @@ namespace AuroraThemeManager
             int border = style == null ? 0 : style.BorderSize;
             if (border > 0)
             {
-                using (var pen = new Pen(ControlPaint.Light(face, 0.5f), border))
+                using (var pen = new Pen(ColorOf("Background", Color.Black), border))
                     g.DrawRectangle(pen, r.X + border / 2f, r.Y + border / 2f, r.Width - border, r.Height - border);
             }
             if (image != null)
