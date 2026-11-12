@@ -419,6 +419,18 @@ namespace AuroraThemeManager
             alpha.ValueChanged += Alpha_ValueChanged;
             alphaBoxes[entry.Name] = alpha;
             tips.SetToolTip(alpha, entry.Name + " transparency (0 fully transparent, 255 solid)");
+            alpha.Enter -= SelectAllOnEnter;
+            alpha.Enter += SelectAllOnEnter;
+        }
+
+        private void SelectAllOnEnter(object sender, EventArgs e)
+        {
+            var box = (NumericUpDown)sender;
+            BeginInvoke((Action)(() =>
+            {
+                if (!box.IsDisposed && box.ContainsFocus)
+                    box.Select(0, box.Text.Length);
+            }));
         }
 
         private readonly List<KeyValuePair<Control, Button>> missingAlpha = new List<KeyValuePair<Control, Button>>();
