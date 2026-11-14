@@ -71,6 +71,9 @@
     <Compile Include="Settings.Layout.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.Theme.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Settings.Icons.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>

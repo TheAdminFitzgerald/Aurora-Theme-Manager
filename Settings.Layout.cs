@@ -82,6 +82,7 @@ namespace AuroraThemeManager
             InitIconsTab();
             InitSettingsColumn();
             ScaleDynamicControls();
+            ApplyWindowTheme();
 
             Load += (s, e) => ApplyTabOrder(this);
         }
@@ -762,7 +763,7 @@ namespace AuroraThemeManager
             string tip = FontTip;
             if (missing)
                 tip = "The font named in AuroraConfig.xml, " + current + ", is not installed, so Aurora will fall back to\nanother font.  Pick an installed one.\n\n" + tip;
-            lblFontNote.ForeColor = missing ? Color.Salmon : Color.White;
+            lblFontNote.ForeColor = missing ? Color.Salmon : ThemeText;
             foreach (Control c in new Control[] { lblFontNote, cboFont, lblFontSample, lblFontNote.Parent })
                 if (c != null) tips.SetToolTip(c, tip);
 
@@ -836,6 +837,7 @@ namespace AuroraThemeManager
             suppressEvents = previous;
 
             PopulateFontList();
+            ApplyWindowTheme();
             preview.Invalidate();
         }
 
