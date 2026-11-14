@@ -29,7 +29,7 @@ game that uses it.
 
 - Click a swatch to open the color picker.
 - Turn on **Show transparency selectors** to set an alpha value (0 to 255) beside each color (except for the main backgound color).
-  - Aurora throws an error if the main background color is given an alpha value.
+  - Aurora throws an error if the main background color is given an alpha value, so it is
 - **Button styles** (flat/standard, and border width) and **map font** can be modified.
 - The **minimum days of event logs** saved to the database can be changed here as well.
 

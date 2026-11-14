@@ -597,7 +597,7 @@ namespace AuroraThemeManager
             // 
             this.numMinimumSaveDays.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.numMinimumSaveDays.ForeColor = System.Drawing.Color.White;
-            this.numMinimumSaveDays.Location = new System.Drawing.Point(217, 16);
+            this.numMinimumSaveDays.Location = new System.Drawing.Point(216, 16);
             this.numMinimumSaveDays.Maximum = new decimal(new int[] {
             36500,
             0,
@@ -637,9 +637,9 @@ namespace AuroraThemeManager
             // 
             this.lblFontNote.AutoEllipsis = true;
             this.lblFontNote.ForeColor = System.Drawing.Color.White;
-            this.lblFontNote.Location = new System.Drawing.Point(6, 18);
+            this.lblFontNote.Location = new System.Drawing.Point(6, 16);
             this.lblFontNote.Name = "lblFontNote";
-            this.lblFontNote.Size = new System.Drawing.Size(31, 20);
+            this.lblFontNote.Size = new System.Drawing.Size(50, 20);
             this.lblFontNote.TabIndex = 0;
             this.lblFontNote.Text = "Font:";
             this.lblFontNote.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -647,10 +647,10 @@ namespace AuroraThemeManager
             // cboFont
             // 
             this.cboFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboFont.Location = new System.Drawing.Point(43, 18);
+            this.cboFont.Location = new System.Drawing.Point(62, 16);
             this.cboFont.MaxDropDownItems = 20;
             this.cboFont.Name = "cboFont";
-            this.cboFont.Size = new System.Drawing.Size(216, 21);
+            this.cboFont.Size = new System.Drawing.Size(200, 21);
             this.cboFont.TabIndex = 1;
             this.cboFont.TabStop = false;
             // 
@@ -671,7 +671,7 @@ namespace AuroraThemeManager
             this.chkTransparency.ForeColor = System.Drawing.Color.White;
             this.chkTransparency.Location = new System.Drawing.Point(6, 16);
             this.chkTransparency.Name = "chkTransparency";
-            this.chkTransparency.Size = new System.Drawing.Size(162, 20);
+            this.chkTransparency.Size = new System.Drawing.Size(256, 20);
             this.chkTransparency.TabIndex = 0;
             this.chkTransparency.Text = "Show transparency selectors";
             this.chkTransparency.UseVisualStyleBackColor = false;

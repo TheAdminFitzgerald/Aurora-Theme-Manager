@@ -82,6 +82,7 @@ namespace AuroraThemeManager
             InitIconsTab();
             InitSettingsColumn();
             ScaleDynamicControls();
+            ApplyWindowTheme();
 
             Load += (s, e) => ApplyTabOrder(this);
         }
@@ -419,6 +420,18 @@ namespace AuroraThemeManager
             alpha.ValueChanged += Alpha_ValueChanged;
             alphaBoxes[entry.Name] = alpha;
             tips.SetToolTip(alpha, entry.Name + " transparency (0 fully transparent, 255 solid)");
+            alpha.Enter -= SelectAllOnEnter;
+            alpha.Enter += SelectAllOnEnter;
+        }
+
+        private void SelectAllOnEnter(object sender, EventArgs e)
+        {
+            var box = (NumericUpDown)sender;
+            BeginInvoke((Action)(() =>
+            {
+                if (!box.IsDisposed && box.ContainsFocus)
+                    box.Select(0, box.Text.Length);
+            }));
         }
 
         private readonly List<KeyValuePair<Control, Button>> missingAlpha = new List<KeyValuePair<Control, Button>>();
@@ -631,7 +644,7 @@ namespace AuroraThemeManager
 
         #region Settings column
 
-        private const string FontTip = "The font Aurora draws names and labels in on the tactical and galactic maps.";
+        private const string FontTip = "The font Aurora uses on the tactical and galactic maps.";
         private const string EventLogTip = "Events from this many recent days are always saved.  Older events are saved, newest first, "
                                          + "up to a total of 10,000.\nThis is a game setting and is not stored in themes.";
 
@@ -746,15 +759,11 @@ namespace AuroraThemeManager
             }
             cboFont.SelectedIndex = index;
 
-            bool wine = RunningUnderWine();
-            string where = wine
-                ? "This list is the fonts installed in this Wine prefix that Aurora can use.  To add one, copy the .ttf file into\ndrive_c/windows/Fonts in the prefix and reopen this window."
-                : "This list is the fonts installed on this computer that Aurora can use.";
             bool missing = !known && !string.IsNullOrEmpty(current);
-            string tip = FontTip + "\n" + where;
+            string tip = FontTip;
             if (missing)
                 tip = "The font named in AuroraConfig.xml, " + current + ", is not installed, so Aurora will fall back to\nanother font.  Pick an installed one.\n\n" + tip;
-            lblFontNote.ForeColor = missing ? Color.Salmon : Color.White;
+            lblFontNote.ForeColor = missing ? Color.Salmon : ThemeText;
             foreach (Control c in new Control[] { lblFontNote, cboFont, lblFontSample, lblFontNote.Parent })
                 if (c != null) tips.SetToolTip(c, tip);
 
@@ -828,6 +837,7 @@ namespace AuroraThemeManager
             suppressEvents = previous;
 
             PopulateFontList();
+            ApplyWindowTheme();
             preview.Invalidate();
         }
 
