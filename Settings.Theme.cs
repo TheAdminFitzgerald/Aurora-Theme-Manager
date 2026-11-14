@@ -9,7 +9,6 @@ namespace AuroraThemeManager
     {
         #region Window colors from the theme
 
-        // The designer's colors, each with the role it plays in the window.
         private static readonly Color DesignBackground = Color.Black;
         private static readonly Color DesignText = Color.White;
         private static readonly Color DesignPanel = Color.FromArgb(24, 24, 24);
@@ -20,31 +19,15 @@ namespace AuroraThemeManager
             public Color Back, Fore, Border;
         }
 
-        // Each control's designer colors, kept so a theme is always applied to them and never to the
-        // colors the previous theme left.
         private readonly ConditionalWeakTable<Control, DesignColors> designColors = new ConditionalWeakTable<Control, DesignColors>();
 
-        // The background and text the window was last colored with, so an edit to some other color
-        // does not color it again.
         private int? themedBack, themedText;
 
-        /// <summary>The theme's Standard Text color, which the window's text is drawn in.</summary>
         private Color ThemeText
         {
             get { return config.ColorOr("StandardTextColour", DesignText); }
         }
 
-        /// <summary>
-        /// Colors this window like the theme being edited: the Background color behind everything, the
-        /// Standard Text color for text and button borders, and the darker panels and button faces as
-        /// shades of the background, a step and two steps away from it (lighter on a dark background,
-        /// darker on a light one).  Called when the window opens, after a theme is loaded, and after
-        /// each change, so it follows the Background and Standard Text swatches as they are edited.
-        ///
-        /// The color swatches and the theme preview show the theme's own colors and are left alone, as
-        /// are the icon list and grid and the icon boxes, whose white icons are drawn on a fixed dark
-        /// backing.  Other colors the designer gave (grey notes, warnings) keep their meaning.
-        /// </summary>
         private void ApplyWindowTheme()
         {
             Color back = config.ColorOr("Background", DesignBackground);
@@ -104,9 +87,21 @@ namespace AuroraThemeManager
                 if (flat != null && !design.Border.IsEmpty && map.TryGetValue(design.Border.ToArgb(), out color))
                     flat.FlatAppearance.BorderColor = color;
 
+                var spinner = control as UpDownBase;
+                if (spinner != null)
+                {
+                    spinner.Paint -= FillSpinnerBackground;
+                    spinner.Paint += FillSpinnerBackground;
+                }
+
                 if (control.HasChildren)
                     ThemeChildren(control, map);
             }
+        }
+
+        private static void FillSpinnerBackground(object sender, PaintEventArgs e)
+        {
+            e.Graphics.Clear(((Control)sender).BackColor);
         }
 
         private bool KeepsOwnColors(Control control)
@@ -118,7 +113,6 @@ namespace AuroraThemeManager
                 || control == lvAuroraIcons || control == picCurrent || control == picChosen;
         }
 
-        // A color moved toward white on a dark background, or toward black on a light one.
         private static Color Shade(Color color, float amount)
         {
             int brightness = (color.R * 299 + color.G * 587 + color.B * 114) / 1000;
