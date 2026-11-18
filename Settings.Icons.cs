@@ -224,7 +224,7 @@ namespace AuroraThemeManager
         private void ShowIconError(string message)
         {
             Log.Error(message);
-            MessageBox.Show(this, message, "Icons", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show(this, message, "Toolbar Icons", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private string IconLicenseUrlAt(Point point)

@@ -289,8 +289,8 @@ namespace AuroraThemeManager
             this.lblIconLicense = new System.Windows.Forms.Label();
             this.btnIconRestore = new System.Windows.Forms.Button();
             this.btnIconRestoreAll = new System.Windows.Forms.Button();
-            this.tips = new System.Windows.Forms.ToolTip(this.components);
             this.iconGrid = new AuroraThemeManager.IconGrid();
+            this.tips = new System.Windows.Forms.ToolTip(this.components);
             this.grpThemes.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
@@ -458,7 +458,7 @@ namespace AuroraThemeManager
             this.tabGeneral.Padding = new System.Windows.Forms.Padding(3);
             this.tabGeneral.Size = new System.Drawing.Size(834, 595);
             this.tabGeneral.TabIndex = 0;
-            this.tabGeneral.Text = "General";
+            this.tabGeneral.Text = "General Colors";
             // 
             // grpButtonStyle
             // 
@@ -2005,7 +2005,7 @@ namespace AuroraThemeManager
             this.tabMaps.Padding = new System.Windows.Forms.Padding(3);
             this.tabMaps.Size = new System.Drawing.Size(834, 595);
             this.tabMaps.TabIndex = 2;
-            this.tabMaps.Text = "Maps";
+            this.tabMaps.Text = "Map Colors";
             // 
             // grpTacticalMapBodies
             // 
@@ -3655,7 +3655,7 @@ namespace AuroraThemeManager
             this.tabIcons.Padding = new System.Windows.Forms.Padding(3);
             this.tabIcons.Size = new System.Drawing.Size(834, 595);
             this.tabIcons.TabIndex = 3;
-            this.tabIcons.Text = "Icons";
+            this.tabIcons.Text = "Toolbar Icons";
             // 
             // label2
             // 
@@ -3827,12 +3827,6 @@ namespace AuroraThemeManager
             this.btnIconRestoreAll.Text = "Restore all";
             this.btnIconRestoreAll.UseVisualStyleBackColor = false;
             // 
-            // tips
-            // 
-            this.tips.AutoPopDelay = 20000;
-            this.tips.InitialDelay = 400;
-            this.tips.ReshowDelay = 100;
-            // 
             // iconGrid
             // 
             this.iconGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
@@ -3842,6 +3836,12 @@ namespace AuroraThemeManager
             this.iconGrid.Size = new System.Drawing.Size(614, 456);
             this.iconGrid.TabIndex = 6;
             this.iconGrid.TabStop = false;
+            // 
+            // tips
+            // 
+            this.tips.AutoPopDelay = 20000;
+            this.tips.InitialDelay = 400;
+            this.tips.ReshowDelay = 100;
             // 
             // Settings
             // 

@@ -9,8 +9,9 @@ toolbar icons as SVG files in the `Icons` folder. Aurora Theme Manager edits bot
 - a live preview of game windows, the tactical map and the galactic map
 - themes you can save, switch between and share
 - toolbar icons replaced with any of the 4,000+ icons from [game-icons.net](https://game-icons.net)
+- flag, medal, race, ship and station images added in bulk, and shuffled so new races get different ones
 
-![The General tab](docs/screenshots/general.png)
+![The General Colors tab](docs/screenshots/general.png)
 
 ## Getting started
 
@@ -20,11 +21,19 @@ toolbar icons as SVG files in the `Icons` folder. Aurora Theme Manager edits bot
    before the first change of a session is kept as `AuroraConfig.xml.bak`.
 
 Running `ATM.exe` will create a folder called `ATM` to store settings, saved
-themes, icon backups and icon cache, so your Aurora install is not cluttered.
+themes, backups and a cache of downloaded icons and image thumbnails (`ATM\Cache`, with a folder for
+each kind), so your Aurora install is not cluttered.  A new `ATM.exe` can simply replace the old one: any
+folders an earlier version left are moved into place when it starts.
+
+The first time it runs, ATM copies Aurora's `Flags`, `Medals`, `Races`, `ShipIcons` and `StationIcons`
+folders into `ATM\Backups`, so the images as they were can always be put back by hand.  Each folder is
+copied once, when `ATM\Backups` does not hold it yet.  It also zips the five folders, as they are when ATM
+first runs, into `ATM\Backups\Originals.zip`; once that file exists it is never changed, so the original
+images can always be recovered from it.
 
 ## Editing colors
 
-The **General** and **Maps** tabs hold every color in `AuroraConfig.xml`, grouped by the part of the
+The **General Colors** and **Map Colors** tabs hold every color in `AuroraConfig.xml`, grouped by the part of the
 game that uses it.
 
 - Click a swatch to open the color picker.
@@ -33,7 +42,7 @@ game that uses it.
 - **Button styles** (flat/standard, and border width) and **map font** can be modified.
 - The **minimum days of event logs** saved to the database can be changed here as well.
 
-![The Maps tab](docs/screenshots/maps.png)
+![The Map Colors tab](docs/screenshots/maps.png)
 
 ## Live preview
 
@@ -78,16 +87,56 @@ of the window to apply it.
 
 ## Toolbar icons
 
-The **Icons** tab replaces the SVG toolbar icons in Aurora's `Icons` folder.
+The **Toolbar Icons** tab replaces the SVG toolbar icons in Aurora's `Icons` folder.
 
 - The list on the left is Aurora's current icons. The grid on the right holds the game-icons.net
   catalogue, which you can filter by name. Hover an icon to see its name and author.
 - Pick an Aurora icon and a replacement, then click **Update**. **Select Custom Icon** uses an `.svg` file of
   your own instead.
-- The originals are backed up the first time you replace them. **Restore original** and **Restore all**
-  put them back.
+- The originals are backed up in `ATM\Backups\Icons` the first time you replace them. **Restore original**
+  and **Restore all** put them back.  Backups made by earlier versions of ATM in `ATM\IconBackups` are
+  moved there automatically.
 
-![The Icons tab](docs/screenshots/icons.png)
+![The Toolbar Icons tab](docs/screenshots/icons.png)
+
+## Images
+
+The **Flags**, **Medals**, **Races**, **Ships** and **Stations** tabs show thumbnails of the images in
+Aurora's `Flags`, `Medals`, `Races`, `ShipIcons` and `StationIcons` folders.
+
+- **Add Image** copies one image into the folder, and **Add Folder** copies every image in a folder.
+  Both start in `ATM\Extra Graphics\<folder>` (for example `ATM\Extra Graphics\Races`), so images of
+  your own can be dropped there and added from one place.  ATM creates these folders if they are missing.
+- Each image added is named like the images already in the folder, with the lowest number not yet
+  used by any file of any type: with `race001.bmp` and `race003.bmp` in `Races`, a new image becomes
+  `race002.bmp`.
+- Images are saved in the same type as the images Aurora ships in that folder: `.bmp` for races, `.jpg`
+  for flags and `.png` for ships and stations, so new images are treated just like the originals.
+  Transparent parts of an image converted to `.bmp` or `.jpg` become black.  Medals keep their own type.
+- **Delete** (or the Delete key) deletes the selected images.  Some file names are in use and must not go
+  missing: the player defaults, the images of the spoiler races, and every image a race, species or medal
+  in one of your saved games uses (read from `AuroraDB.db`).  When one of those is deleted, a random unused
+  image of the same type is renamed to take its name, so the game does not show an error.  If no unused image
+  is left, a placeholder image in the theme's colors is created.
+- **Missing images**: when ATM starts, and whenever images are deleted or renamed outside ATM while it is
+  open, every name referenced by a saved game is checked, and any that are missing are replaced the
+  same way (noted in `ATM.log`).  This needs `AuroraDB.db` to be readable; if it can't be read, the
+  check is skipped.
+- **Placeholders**: Placeholder images are automatically created in the current theme's background color, text
+  edit color and map font.  ATM remembers its placeholders (in `ATM\Placeholders.txt`) and replaces them with real
+  images when there are enough when clicking **Randomize**, **Add Image**, or  **Add Folder**.
+- **Backup** copies the folder as it is now to `ATM\Backups\<folder>`, asking first if that would overwrite an existing backup.
+- **Restore** replaces the folder's images with those from the backup directory.
+- **Randomize** shuffles the images in the folder, so the spoiler races can get new images to keep you guessing.
+  Before shuffling, every image that is not of the folder's type (`.bmp` for races, `.jpg` for flags, `.png` for ships,
+  stations and medals) is converted, unless its name is in use.  In that case the name is kept exactly,
+  and whichever image is shuffled into its place is converted to that type instead, so no image Aurora looks for
+  goes missing.  Randomize needs to read `AuroraDB.db` for this, and does nothing if it cannot.
+- **Set Player Default** (Races and Flags) makes the selected image the default image for a player race when starting a new game.
+  New games use `race327.bmp` for the player's species and `flag0000.jpg` for the
+  player's flag, so the selected image's file name is swapped with that name: the old default takes the
+  selected image's name, and no file name is lost.  The default is shown first, outlined in gold, and **Randomize** never moves
+  it.
 
 ## Building
 

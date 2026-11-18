@@ -59,6 +59,8 @@
     <Compile Include="AuroraDefaults.cs" />
     <Compile Include="IconCatalog.cs" />
     <Compile Include="IconGrid.cs" />
+    <Compile Include="ThumbGrid.cs" />
+    <Compile Include="ImageFolders.cs" />
     <Compile Include="OOBSymbols.cs" />
     <Compile Include="AppIcon.cs" />
     <Compile Include="ColorPicker.cs" />
@@ -75,6 +77,9 @@
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.Icons.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.Images.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
     <Compile Include="PreviewForm.cs" />

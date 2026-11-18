@@ -78,15 +78,21 @@ namespace AuroraThemeManager
 
         /// <summary>
         /// Everything ATM keeps lives in an ATM folder beside the exe, so only ATM.exe has to be shipped.
-        /// The folders are made on first run: Presets for saved themes, IconBackups for the original
-        /// toolbar icons and IconCache for downloaded game-icons.net icons.
+        /// The folders are made on first run: Presets for saved themes, Backups for the original toolbar
+        /// icons (Backups\Icons) and a copy of each picture folder, and Cache for downloaded
+        /// game-icons.net icons (Cache\Icons) and picture thumbnails (Cache\Flags, Cache\Races and so on).
+        /// Folders left by earlier versions are moved into place, so a new ATM.exe can simply replace the
+        /// old one.
         /// </summary>
         private static void CreateDataFolders()
         {
             bool firstRun = !Directory.Exists(Path.Combine(ToolDirectory, "ATM", "Presets"));
             Settings.GetPresetsDirectory();
             IconCatalog.BackupDirectory();
+            CacheFolders.Migrate();
             IconCatalog.CacheDirectory();
+            ImageBackups.Create();
+            ImageBackups.CreateOriginalsZip();
             if (!firstRun)
                 return;
             Log.Info("First run: created " + DataDirectory);
