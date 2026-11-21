@@ -79,6 +79,7 @@ namespace AuroraThemeManager
 
             BindColorTabs();
             UpdateAlphaVisibility();
+            InitEventsTab();
             InitIconsTab();
             InitImageTabs();
             InitSettingsColumn();

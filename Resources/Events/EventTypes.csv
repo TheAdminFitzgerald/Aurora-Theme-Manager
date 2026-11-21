@@ -1,0 +1,250 @@
+# EventTypeID,Category,Name
+0,Other,No Event Type
+1,Production,Production
+2,Ship - Construction,Ship Construction
+3,Ship - Construction,Ship Repair
+4,Ship - Construction,Ship Refit
+7,Ship - Construction,Ship Scrapped
+9,Ground Units,Unit Trained
+10,Commanders,Commander Update
+11,Combat - Shields,Shield Recharge
+12,Combat - Fire Controls,Targeting
+14,Combat - Fire Controls,Targeting Problem
+15,Combat - Missiles,Missile Launch
+16,Ship - Problems,Out of Ammo
+17,Combat - Missiles,No Missile Assigned
+18,Combat - Fire Controls,Weapon Reloading
+19,Combat - Fire Controls,Chance To Hit
+20,Combat - Offense,Target Hit
+21,Combat - Offense,Target Missed
+22,Combat - Fire Controls,Weapon Recharging
+25,Other,System Intact
+26,Combat - Damage,Secondary Explosion
+27,Combat - Damage,Ship Destroyed
+28,Combat - Damage,Damage Report
+35,Other,Team Skill
+37,Survey,System Surveyed
+41,Fleet - Orders,Orders Assigned
+42,Fleet - Problems,Orders Not Possible
+43,Mining,Minerals Located
+44,Xenoarchaeology,Ruins Located
+45,Fleet - Orders,Orders Completed
+46,Ship - Problems,Insufficient Fuel
+52,Combat - Missiles,Target Lost
+53,Combat - Missiles,Missiles Lost
+54,Jump Point,Transit Failure
+55,Intelligence,Communication
+57,Xenoarchaeology,Ruins Exploited
+58,Ship - Problems,No Spare Parts
+59,Combat - Damage,Successful Repair
+60,Research,Research Completed
+63,Research,Inactive Lab
+64,Mining,Mineral Shortage
+65,Ship - Problems,Low Fuel
+66,Mining,Mineral Exhausted
+71,Ship - Problems,Fuel Exhausted
+75,Combat - Ground,Ground Combat Update
+76,Terraforming,Gas Removed
+77,Terraforming,Terraforming Report
+80,Ship - Problems,Harvester Capacity
+81,Terraforming,Ice Sheet Melted
+82,Population,Morale Increase
+83,Fleet - Problems,Pickup Failed
+87,Jump Point,Jump Gate Underway
+88,Research,Research Started
+90,Commanders,Commander Promoted
+91,Fleet - Orders,Conditional Order
+92,Combat - Damage,Life Pod Expired
+93,Fleet - Orders,Search and Rescue
+97,Combat - Damage,System Damaged
+98,Commanders,New Naval Officer
+99,Commanders,Commander Health
+100,Xenoarchaeology,Mine Restored
+101,Xenoarchaeology,Factory Restored
+106,Intelligence,Intelligence Update
+107,Fleet - Orders,Fleet Message
+108,Salvage,Wreck Salvaged
+111,Production,Components Scrapped
+115,Population,Pop Status Change
+116,Other,Insufficient JGC
+117,Other,Message Continued
+119,Combat - Fire Controls,Fire Delay
+122,Ship - Overhaul,Overhaul Complete
+125,Ship - Construction,Shipyard Modified
+127,Research,Tech Downloaded
+128,Research,Tech Data Scanned
+129,Commanders,Command Assignment
+133,Contact - Civilian,Civilian Construction
+135,Production - Problems,Fuel Shortage
+138,Jump Point,Jump Point Detected
+139,Contact - Civilian,Civilian Activity
+140,Fleet - Problems,Illegal Order
+141,Survey,New Mineral Deposit
+142,Mining,Accessibility Increase
+143,Survey,Geo Survey Complete
+145,Ship - Overhaul,No Freighter Overhaul
+146,Ship - Problems,Maintenance Problem
+147,Contact - Alien,New Alien Race
+148,Population,Unrest Increasing
+149,Population,Unrest Decreasing
+155,Other,Morale Increase
+157,Combat - Ground,Successful Espionage
+169,Combat - Other,Increment Adjustment
+173,Combat - Ground,Reparations
+174,Combat - Ground,Planet Looted
+177,Other,Overkill
+178,Combat - Other,Ship Surrender
+179,Terraforming,Breathable Atmosphere
+180,Intelligence,Diplomacy
+181,Contact - Hostile,New Hostile Contact
+182,Contact - Neutral,New Neutral Contact
+183,Contact - Friendly,New Friendly Contact
+184,Contact - Allied,New Allied Contact
+186,Salvage,Wreck Contact
+187,Other,Mineral Packet Contact
+191,Contact - Civilian,Civilian Contact
+195,Survey,New System Discovered
+200,Combat - Missiles,Missile Self-destruct
+201,Ship - Overhaul,Overhaul Clock Reduced
+203,Other,Thermal Contact Lost
+204,Other,GPD Contact Lost
+206,Contact - Hostile,Hostile Contact Update
+207,Contact - Neutral,Neutral Contact Update
+208,Contact - Friendly,Friendly Contact Update
+209,Contact - Allied,Allied Contact Update
+210,Contact - Civilian,Civilian Contact Update
+211,Mining,Civilian Mining Colony
+212,Contact - Civilian,New Shipping Line
+215,Commanders,Outstanding New Officer
+216,Commanders,Exceptional New Officer
+217,Commanders,Promising New Officer
+218,Survey,Geological Survey Data
+219,Combat - Boarding,Boarding Attempt
+220,Combat - Boarding,Boarding Combat
+221,Ship - Crew,Crew Losses
+224,Salvage,Wreck Components
+227,Combat - Boarding,Ramming Attempt
+228,Other,Empire in Debt
+229,Research,Overallocation of Labs
+232,Contact - Alien,New Alien Class
+233,Contact - Hostile,New Hostile Alien Ship
+235,Ship - Crew,Crew Grade Increase
+237,Combat - Shields,Shield Deactivation
+238,Research,Tech Data Learned
+245,Fleet - Orders,Tractor(s) Released
+252,Ship - Crew,Crew Morale Falling
+253,Ship - Overhaul,Shore Leave Complete
+254,Combat - Damage,Life Support Failure
+255,Combat - Missiles,Probe Out of Fuel
+256,Commanders,New Administrator
+257,Commanders,New Scientist
+258,Intelligence,POWs Rescued
+260,Xenoarchaeology,Ancient Construct
+265,Other,Time Check
+266,Fleet - Problems,Invalid Unload System
+276,Production - Problems,Conversion Halted
+277,Combat - Damage,Life Pods Launched
+278,Ship - Crew,Crew Escape
+279,Production - Problems,Insufficient Population
+280,Commanders,Commander Experience
+281,Other,Replacement Unit Disbanded
+282,Other,Recovery Failure
+283,Ship - Crew,Ship Overcrowded
+284,Terraforming,Change to Dominant Terrain
+285,Combat - Other,New Combat Contact
+286,Population,Admin Command Update
+287,Ground Units,Training Task Abandoned
+288,Survey,Ground Survey Potential
+289,Commanders,Senior Officer Required
+290,Ship - Crew,Maximum Fleet Training
+291,Commanders,New Ground Force Officer
+292,Commanders,Retirement
+293,Contact - Alien,New Alien Population
+294,Combat - Damage,Acid Burn
+295,Salvage,Intact Ship Salvaged
+296,Commanders,Medal Awarded
+297,Combat - Boarding,Boarding Underway
+298,Contact - Alien,New Alien Ground Unit
+299,Combat - Ground,Breakthrough Achieved
+300,Combat - Ground,Ground Attack Summary
+301,Combat - Ground,Element Loss Summary
+302,Combat - Ground,Attack vs GUC Summary
+303,Combat - Ground,Ground Defence Summary
+304,Combat - Ground,Element vs GUC Report
+305,Combat - Orbital,Ship vs GUC Report
+306,Combat - Ground,GUC vs GUC Summary
+307,Combat - Ground,Formation Attack Summary
+308,Combat - Ground,Formation Loss Summary
+309,Combat - Orbital,Orbital vs GUC Summary
+310,Combat - Orbital,Orbital Support Reassigned
+311,Ground Units,Ground Support Reassigned
+312,Salvage,Installations Salvaged
+313,Combat - Fire Controls,Target Out of Range
+314,Combat - Ground,Ground Combat Intelligence
+315,Intelligence,Alien Communication
+316,Terraforming,Ice Sheet Frozen
+317,Ship - Construction,Shipyard Task Abandoned
+318,Ship - Crew,Training not Possible
+319,Production,Light Naval Construction
+320,Production,Production Started
+321,Ship - Problems,Deployment Time Exceeded
+322,Commanders,Commander Unassigned
+323,Ground Units,Formation Training Task
+324,Combat - Other,Planet Destroyed
+325,Commanders,Commander Restored
+326,Ship - Problems,Incorrect Ordnance
+327,Fleet - Orders,Fleet Transfer
+328,Production,Installation Scrapped
+329,Ground Units,Ground Units Scrapped
+330,Combat - Orbital,Orbital Support Summary
+331,Combat - Point Defense,Energy Point Defence
+332,Combat - Point Defense,STO Point Defence
+333,Combat - Point Defense,AMM Point Defence
+334,Combat - Offense,Ship Combat - Energy
+335,Combat - Missiles,Ship Combat - Missile
+336,Combat - Orbital,STO Combat
+337,Combat - Missiles,Missile vs Ship
+338,Combat - Orbital,Attacked by STO
+339,Combat - Defense,Attacked By Energy Weapons
+340,Combat - Defense,Attacked By Missiles
+341,Combat - Defense,Attacked By AA Fire
+342,Combat - Damage,Boarding Damage
+343,Combat - Damage,Acid Damage
+344,Combat - Damage,Collaterall Damage
+345,Combat - Damage,Damage Summary
+346,Combat - Point Defense,Fighter Point Defence
+347,Combat - Offense,Fighter Combat - Energy
+348,Combat - Missiles,Fighter Combat - Missile
+349,Combat - Point Defense,Fleet PD Summary
+350,Contact - Civilian,Civilian Ship Scrapped
+351,Combat - Damage,Damage Control
+352,Combat - Orbital,Bombardment Summary
+353,Jump Point,Transit Delay
+354,Combat - Point Defense,Population PD Summary
+356,Salvage,New Wreck Detected
+357,Salvage,Alien Salvage
+358,Other,Test Data
+359,Fleet - Orders,Ground Unit Unloaded
+360,Production - Problems,Stockpile Warning
+361,Ship - Problems,Maintenance Failure
+362,Contact - Neutral,Neutral Contact Update - AC
+363,Contact - Friendly,Friendly Contact Update - AC
+364,Contact - Allied,Allied Contact Update - AC
+365,Combat - Offense,Successful Ramming Attack
+366,Combat - Defense,Ship Rammed
+367,Intelligence,Interrogation Update
+368,Combat - Damage,System Destroyed
+369,Ground Units,No Replacements Required
+370,Commanders,Scientist Experience
+371,Commanders,Administrator Experience
+372,Commanders,Unassigned Experience
+373,Xenoarchaeology,Xenoarchaeology Research
+374,Xenoarchaeology,Artifacts Recovered
+375,Survey,Aether Gate Detected
+376,Mining,All Minerals Exhausted
+377,Contact - Neutral,New Neutral Alien Ship
+378,Contact - Friendly,New Friendly Alien Ship
+379,Contact - Allied,New Allied Alien Ship
+380,Mining,Mining Colony Update
+381,Salvage,Incomplete Salvage
+382,Other,Game Saved

@@ -273,6 +273,14 @@ namespace AuroraThemeManager
             this.swatchGalMapBlackHoleColour = new System.Windows.Forms.Button();
             this.lblGalMapCometsColour = new System.Windows.Forms.Label();
             this.swatchGalMapCometsColour = new System.Windows.Forms.Button();
+            this.tabEvents = new System.Windows.Forms.TabPage();
+            this.eventGrid = new AuroraThemeManager.EventColourGrid();
+            this.flpEventsBar = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnEventsScratch = new System.Windows.Forms.Button();
+            this.btnEventsImport = new System.Windows.Forms.Button();
+            this.btnEventsExport = new System.Windows.Forms.Button();
+            this.btnEventsForeground = new System.Windows.Forms.Button();
+            this.btnEventsBackground = new System.Windows.Forms.Button();
             this.tabIcons = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -320,6 +328,8 @@ namespace AuroraThemeManager
             ((System.ComponentModel.ISupportInitialize)(this.alphaGalMapJumpPointConnectionsColour)).BeginInit();
             this.grpGalacticMapCircles.SuspendLayout();
             this.grpGalacticMapSystemIcons.SuspendLayout();
+            this.tabEvents.SuspendLayout();
+            this.flpEventsBar.SuspendLayout();
             this.tabIcons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picChosen)).BeginInit();
@@ -429,6 +439,7 @@ namespace AuroraThemeManager
             // 
             this.tabMain.Controls.Add(this.tabGeneral);
             this.tabMain.Controls.Add(this.tabMaps);
+            this.tabMain.Controls.Add(this.tabEvents);
             this.tabMain.Controls.Add(this.tabIcons);
             this.tabMain.Location = new System.Drawing.Point(12, 71);
             this.tabMain.Multiline = true;
@@ -3629,6 +3640,114 @@ namespace AuroraThemeManager
             this.swatchGalMapCometsColour.Text = "#000000";
             this.swatchGalMapCometsColour.UseVisualStyleBackColor = false;
             // 
+            // tabEvents
+            // 
+            this.tabEvents.BackColor = System.Drawing.Color.Black;
+            this.tabEvents.Controls.Add(this.eventGrid);
+            this.tabEvents.Controls.Add(this.flpEventsBar);
+            this.tabEvents.ForeColor = System.Drawing.Color.White;
+            this.tabEvents.Location = new System.Drawing.Point(4, 22);
+            this.tabEvents.Name = "tabEvents";
+            this.tabEvents.Padding = new System.Windows.Forms.Padding(6);
+            this.tabEvents.Size = new System.Drawing.Size(834, 595);
+            this.tabEvents.TabIndex = 4;
+            this.tabEvents.Text = "Event Colors";
+            // 
+            // eventGrid
+            // 
+            this.eventGrid.BackColor = System.Drawing.Color.Black;
+            this.eventGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.eventGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.eventGrid.ForeColor = System.Drawing.Color.White;
+            this.eventGrid.Location = new System.Drawing.Point(6, 42);
+            this.eventGrid.Name = "eventGrid";
+            this.eventGrid.Size = new System.Drawing.Size(822, 547);
+            this.eventGrid.TabIndex = 1;
+            // 
+            // flpEventsBar
+            // 
+            this.flpEventsBar.AutoSize = true;
+            this.flpEventsBar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flpEventsBar.BackColor = System.Drawing.Color.Black;
+            this.flpEventsBar.Controls.Add(this.btnEventsScratch);
+            this.flpEventsBar.Controls.Add(this.btnEventsImport);
+            this.flpEventsBar.Controls.Add(this.btnEventsExport);
+            this.flpEventsBar.Controls.Add(this.btnEventsForeground);
+            this.flpEventsBar.Controls.Add(this.btnEventsBackground);
+            this.flpEventsBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flpEventsBar.Location = new System.Drawing.Point(6, 6);
+            this.flpEventsBar.Name = "flpEventsBar";
+            this.flpEventsBar.Padding = new System.Windows.Forms.Padding(0, 0, 0, 6);
+            this.flpEventsBar.Size = new System.Drawing.Size(822, 36);
+            this.flpEventsBar.TabIndex = 0;
+            // 
+            // btnEventsScratch
+            // 
+            this.btnEventsScratch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.btnEventsScratch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEventsScratch.ForeColor = System.Drawing.Color.White;
+            this.btnEventsScratch.Location = new System.Drawing.Point(0, 3);
+            this.btnEventsScratch.Margin = new System.Windows.Forms.Padding(0, 3, 6, 3);
+            this.btnEventsScratch.Name = "btnEventsScratch";
+            this.btnEventsScratch.Size = new System.Drawing.Size(140, 24);
+            this.btnEventsScratch.TabIndex = 0;
+            this.btnEventsScratch.Text = "Start From Scratch";
+            this.btnEventsScratch.UseVisualStyleBackColor = false;
+            // 
+            // btnEventsImport
+            // 
+            this.btnEventsImport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.btnEventsImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEventsImport.ForeColor = System.Drawing.Color.White;
+            this.btnEventsImport.Location = new System.Drawing.Point(146, 3);
+            this.btnEventsImport.Margin = new System.Windows.Forms.Padding(0, 3, 6, 3);
+            this.btnEventsImport.Name = "btnEventsImport";
+            this.btnEventsImport.Size = new System.Drawing.Size(110, 24);
+            this.btnEventsImport.TabIndex = 1;
+            this.btnEventsImport.Text = "Import CSV...";
+            this.btnEventsImport.UseVisualStyleBackColor = false;
+            // 
+            // btnEventsExport
+            // 
+            this.btnEventsExport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.btnEventsExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEventsExport.ForeColor = System.Drawing.Color.White;
+            this.btnEventsExport.Location = new System.Drawing.Point(262, 3);
+            this.btnEventsExport.Margin = new System.Windows.Forms.Padding(0, 3, 6, 3);
+            this.btnEventsExport.Name = "btnEventsExport";
+            this.btnEventsExport.Size = new System.Drawing.Size(110, 24);
+            this.btnEventsExport.TabIndex = 2;
+            this.btnEventsExport.Text = "Export CSV...";
+            this.btnEventsExport.UseVisualStyleBackColor = false;
+            // 
+            // btnEventsForeground
+            // 
+            this.btnEventsForeground.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.btnEventsForeground.Enabled = false;
+            this.btnEventsForeground.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEventsForeground.ForeColor = System.Drawing.Color.White;
+            this.btnEventsForeground.Location = new System.Drawing.Point(396, 3);
+            this.btnEventsForeground.Margin = new System.Windows.Forms.Padding(18, 3, 6, 3);
+            this.btnEventsForeground.Name = "btnEventsForeground";
+            this.btnEventsForeground.Size = new System.Drawing.Size(110, 24);
+            this.btnEventsForeground.TabIndex = 3;
+            this.btnEventsForeground.Text = "Foreground";
+            this.btnEventsForeground.UseVisualStyleBackColor = false;
+            // 
+            // btnEventsBackground
+            // 
+            this.btnEventsBackground.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.btnEventsBackground.Enabled = false;
+            this.btnEventsBackground.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEventsBackground.ForeColor = System.Drawing.Color.White;
+            this.btnEventsBackground.Location = new System.Drawing.Point(512, 3);
+            this.btnEventsBackground.Margin = new System.Windows.Forms.Padding(0, 3, 6, 3);
+            this.btnEventsBackground.Name = "btnEventsBackground";
+            this.btnEventsBackground.Size = new System.Drawing.Size(110, 24);
+            this.btnEventsBackground.TabIndex = 4;
+            this.btnEventsBackground.Text = "Background";
+            this.btnEventsBackground.UseVisualStyleBackColor = false;
+            // 
             // tabIcons
             // 
             this.tabIcons.AutoScroll = true;
@@ -3888,6 +4007,9 @@ namespace AuroraThemeManager
             ((System.ComponentModel.ISupportInitialize)(this.alphaGalMapJumpPointConnectionsColour)).EndInit();
             this.grpGalacticMapCircles.ResumeLayout(false);
             this.grpGalacticMapSystemIcons.ResumeLayout(false);
+            this.tabEvents.ResumeLayout(false);
+            this.tabEvents.PerformLayout();
+            this.flpEventsBar.ResumeLayout(false);
             this.tabIcons.ResumeLayout(false);
             this.tabIcons.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picCurrent)).EndInit();
@@ -4171,5 +4293,13 @@ namespace AuroraThemeManager
         private System.Windows.Forms.Label lblCivilianShippingLineColour;
         private System.Windows.Forms.Button swatchCivilianShippingLineColour;
         private System.Windows.Forms.Label lblFontSample;
+        private System.Windows.Forms.TabPage tabEvents;
+        private AuroraThemeManager.EventColourGrid eventGrid;
+        private System.Windows.Forms.FlowLayoutPanel flpEventsBar;
+        private System.Windows.Forms.Button btnEventsScratch;
+        private System.Windows.Forms.Button btnEventsImport;
+        private System.Windows.Forms.Button btnEventsExport;
+        private System.Windows.Forms.Button btnEventsForeground;
+        private System.Windows.Forms.Button btnEventsBackground;
     }
 }

@@ -94,7 +94,8 @@ namespace AuroraThemeManager
                     spinner.Paint += FillSpinnerBackground;
                 }
 
-                if (control.HasChildren)
+                // The event grid themes its own boxes.
+                if (control.HasChildren && !(control is EventColourGrid))
                     ThemeChildren(control, map);
             }
         }

@@ -44,6 +44,22 @@ game that uses it.
 
 ![The Map Colors tab](docs/screenshots/maps.png)
 
+## Event colors
+
+Aurora stores event colors in each saved game, not `AuroraConfig.xml`, so the **Event Colors** tab
+edits a set of colors and exports it as a CSV for Aurora's **Events** window to import.
+
+- Events are grouped by category, each drawn in its own colors.
+- Click to select an event, Ctrl+Click to add or remove one, Shift+Click for a range.  **Foreground** and
+  **Background** change the colors of every selected event.
+- Right-click an event to copy, paste or reset colors; right-click a category to select it all.
+- **Import CSV** loads a CSV from Aurora or ATM.  **Start From Scratch** resets every event to the theme's
+  colors.  **Export CSV** saves the set.
+- Event names are read from `AuroraDB.db` (read only), so new event types appear automatically.
+  Categories are ATM's own, set in `Resources/Events/EventTypes.csv`.
+
+![The Event Colors tab](docs/screenshots/events.png)
+
 ## Live preview
 
 **Preview** opens a second window that draws your current colors the way Aurora uses them. Hover
@@ -99,44 +115,32 @@ The **Toolbar Icons** tab replaces the SVG toolbar icons in Aurora's `Icons` fol
 
 ![The Toolbar Icons tab](docs/screenshots/icons.png)
 
-## Images
+## Flags, Medals, Races, Ships and Stations
 
-The **Flags**, **Medals**, **Races**, **Ships** and **Stations** tabs show thumbnails of the images in
-Aurora's `Flags`, `Medals`, `Races`, `ShipIcons` and `StationIcons` folders.
+These five tabs work the same way: each shows thumbnails of one of Aurora's image folders (`Flags`,
+`Medals`, `Races`, `ShipIcons`, `StationIcons`).
 
-- **Add Image** copies one image into the folder, and **Add Folder** copies every image in a folder.
-  Both start in `ATM\Extra Graphics\<folder>` (for example `ATM\Extra Graphics\Races`), so images of
-  your own can be dropped there and added from one place.  ATM creates these folders if they are missing.
-- Each image added is named like the images already in the folder, with the lowest number not yet
-  used by any file of any type: with `race001.bmp` and `race003.bmp` in `Races`, a new image becomes
-  `race002.bmp`.
-- Images are saved in the same type as the images Aurora ships in that folder: `.bmp` for races, `.jpg`
-  for flags and `.png` for ships and stations, so new images are treated just like the originals.
-  Transparent parts of an image converted to `.bmp` or `.jpg` become black.  Medals keep their own type.
-- **Delete** (or the Delete key) deletes the selected images.  Some file names are in use and must not go
-  missing: the player defaults, the images of the spoiler races, and every image a race, species or medal
-  in one of your saved games uses (read from `AuroraDB.db`).  When one of those is deleted, a random unused
-  image of the same type is renamed to take its name, so the game does not show an error.  If no unused image
-  is left, a placeholder image in the theme's colors is created.
-- **Missing images**: when ATM starts, and whenever images are deleted or renamed outside ATM while it is
-  open, every name referenced by a saved game is checked, and any that are missing are replaced the
-  same way (noted in `ATM.log`).  This needs `AuroraDB.db` to be readable; if it can't be read, the
-  check is skipped.
-- **Placeholders**: Placeholder images are automatically created in the current theme's background color, text
-  edit color and map font.  ATM remembers its placeholders (in `ATM\Placeholders.txt`) and replaces them with real
-  images when there are enough when clicking **Randomize**, **Add Image**, or  **Add Folder**.
-- **Backup** copies the folder as it is now to `ATM\Backups\<folder>`, asking first if that would overwrite an existing backup.
-- **Restore** replaces the folder's images with those from the backup directory.
-- **Randomize** shuffles the images in the folder, so the spoiler races can get new images to keep you guessing.
-  Before shuffling, every image that is not of the folder's type (`.bmp` for races, `.jpg` for flags, `.png` for ships,
-  stations and medals) is converted, unless its name is in use.  In that case the name is kept exactly,
-  and whichever image is shuffled into its place is converted to that type instead, so no image Aurora looks for
-  goes missing.  Randomize needs to read `AuroraDB.db` for this, and does nothing if it cannot.
-- **Set Player Default** (Races and Flags) makes the selected image the default image for a player race when starting a new game.
-  New games use `race327.bmp` for the player's species and `flag0000.jpg` for the
-  player's flag, so the selected image's file name is swapped with that name: the old default takes the
-  selected image's name, and no file name is lost.  The default is shown first, outlined in gold, and **Randomize** never moves
-  it.
+- **Add Image** and **Add Folder** copy images in, named and converted to match Aurora's own files
+  (`.bmp` races, `.jpg` flags, `.png` ships and stations), so the game treats them like the originals.
+  `ATM\Extra Graphics\<folder>` is a handy place to keep images of your own.
+- **Randomize** shuffles the images in the folder.  Aurora uses fixed file names for some images, such as
+  the spoiler races', so they always look the same; shuffling gives them new ones to keep you guessing.
+- **Set Player Default** (Races and Flags) picks the image a new game gives the player: ATM swaps the
+  selected file's name with the default (`race327.bmp`, `flag0000.jpg`).  The default is outlined in gold,
+  and Randomize leaves it alone.
+- **Backup** and **Restore** save and put back the whole folder (`ATM\Backups\<folder>`).
+
+Aurora throws an error when an image it expects is missing.  ATM reads `AuroraDB.db` (read only) to
+learn which file names your saved games use, and keeps those names, the player defaults and the spoiler
+races' images in place:
+
+- Randomize never removes a name in use.
+- Deleting one renames a spare image into its place.  If there is no spare, ATM creates a placeholder in
+  the theme's colors and swaps it for a real image once one is added.
+- The same check runs when ATM starts and when files are changed outside it.  Fixes are noted in
+  `ATM.log`.
+
+![The Races tab](docs/screenshots/images.jpg)
 
 ## Building
 
