@@ -140,8 +140,9 @@ namespace AuroraThemeManager
             string temp = path + ".tmp";
             File.WriteAllText(temp, sb.ToString(), new UTF8Encoding(false));
             if (File.Exists(path))
-                File.Delete(path);
-            File.Move(temp, path);
+                File.Replace(temp, path, null);
+            else
+                File.Move(temp, path);
         }
 
         #endregion

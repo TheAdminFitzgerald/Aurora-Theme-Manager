@@ -313,6 +313,22 @@ namespace AuroraThemeManager
 
         private const long JpegQuality = 92;
 
+        /// <summary>Saves to a temp file and moves it into place, so a failed save leaves no partial file.</summary>
+        private void SaveThenMove(Image image, string target, string extension)
+        {
+            string temp = Path.Combine(Directory, "~atm-" + Guid.NewGuid().ToString("N") + ".tmp");
+            try
+            {
+                Save(image, temp, extension);
+                File.Move(temp, target);
+            }
+            catch
+            {
+                try { if (File.Exists(temp)) File.Delete(temp); } catch { }
+                throw;
+            }
+        }
+
         /// <summary>
         /// Saves as the extension's type. BMP/JPEG lack transparency, so flatten onto black (like the
         /// stock images' dark backgrounds) instead of exposing whatever transparent pixels hold.
@@ -441,15 +457,22 @@ namespace AuroraThemeManager
         {
             var needed = new List<string>();
             int deleted = 0;
-            foreach (string file in files.Distinct(StringComparer.OrdinalIgnoreCase).OrderBy(f => f, StringComparer.OrdinalIgnoreCase))
+            try
             {
-                File.Delete(file);
-                deleted++;
-                Log.Info(Title + ": deleted " + Path.GetFileName(file));
-                if (IsRequired(file, saved))
-                    needed.Add(Path.GetFileName(file).ToLowerInvariant());
+                foreach (string file in files.Distinct(StringComparer.OrdinalIgnoreCase).OrderBy(f => f, StringComparer.OrdinalIgnoreCase))
+                {
+                    File.Delete(file);
+                    deleted++;
+                    Log.Info(Title + ": deleted " + Path.GetFileName(file));
+                    if (IsRequired(file, saved))
+                        needed.Add(Path.GetFileName(file).ToLowerInvariant());
+                }
             }
-            Refill(needed, saved, random, refilled, placeholders);
+            finally
+            {
+                // Even if a later delete fails, refill the names already gone.
+                Refill(needed, saved, random, refilled, placeholders);
+            }
             return deleted;
         }
 
@@ -553,23 +576,50 @@ namespace AuroraThemeManager
 
         /// <summary>
         /// Replaces the images with the backup's (lowercased; subfolders untouched), then fills required
-        /// names it lacks. Returns the count restored.
+        /// names it lacks. The backup is copied into a staging folder first, so a failed copy leaves the
+        /// current images alone. Returns the count restored.
         /// </summary>
         public int Restore(ICollection<string> saved, Random random, List<string> refilled, List<string> placeholders)
         {
             if (!HasBackup)
                 throw new InvalidOperationException("there is no backup");
             List<string> backup = System.IO.Directory.GetFiles(BackupDirectory).Where(IsImage).ToList();
-            foreach (string file in Images())
-                File.Delete(file);
+            string staging = Path.Combine(Directory, "~atm-restore-" + Guid.NewGuid().ToString("N"));
+            System.IO.Directory.CreateDirectory(staging);
+            bool replacing = false;
             int restored = 0;
-            foreach (string file in backup)
+            try
             {
-                File.Copy(file, Path.Combine(Directory, Path.GetFileName(file).ToLowerInvariant()), true);
-                restored++;
+                foreach (string file in backup)
+                    File.Copy(file, Path.Combine(staging, Path.GetFileName(file).ToLowerInvariant()), true);
+
+                replacing = true;
+                foreach (string file in Images())
+                    File.Delete(file);
+                foreach (string file in System.IO.Directory.GetFiles(staging))
+                {
+                    File.Move(file, Path.Combine(Directory, Path.GetFileName(file)));
+                    restored++;
+                }
+                Log.Info(Title + ": restored " + restored + " images from " + BackupDirectory);
             }
-            Log.Info(Title + ": restored " + restored + " images from " + BackupDirectory);
-            FillMissing(saved, random, refilled, placeholders);
+            finally
+            {
+                // Keep the staging folder if images were left in it, so none are lost.
+                try
+                {
+                    if (!replacing || !System.IO.Directory.EnumerateFileSystemEntries(staging).Any())
+                        System.IO.Directory.Delete(staging, true);
+                    else
+                        Log.Error(Title + ": restore stopped part way; the remaining backup images are in " + staging);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(Title + ": could not remove " + staging + ": " + ex.Message);
+                }
+                if (replacing)
+                    FillMissing(saved, random, refilled, placeholders);
+            }
             return restored;
         }
 
@@ -692,7 +742,7 @@ namespace AuroraThemeManager
         /// Swaps placeholders for unused same-type images, highest numbered first. Returns the count
         /// replaced; <paramref name="remaining"/> gets those left.
         /// </summary>
-        public int ReplacePlaceholders(ICollection<string> saved, out int remaining)
+        public int ReplacePlaceholders(ICollection<string> saved, out int remaining, IDictionary<string, string> renamed = null)
         {
             List<string> placeholders = Images().Where(Placeholders.Is).ToList();
             remaining = placeholders.Count;
@@ -712,6 +762,8 @@ namespace AuroraThemeManager
                 {
                     File.Delete(placeholder);
                     File.Move(spare, Lower(placeholder));
+                    if (renamed != null)
+                        renamed[Path.GetFileName(spare)] = Path.GetFileName(Lower(placeholder));
                     replaced++;
                     remaining--;
                     Log.Info(Title + ": deleted the placeholder " + Path.GetFileName(placeholder)
@@ -766,7 +818,7 @@ namespace AuroraThemeManager
                 {
                     using (var stream = new MemoryStream(File.ReadAllBytes(file)))
                     using (Image image = Image.FromStream(stream))
-                        Save(image, target, Format);
+                        SaveThenMove(image, target, Format);
                     File.Delete(file);
                     present.Remove(Path.GetFileName(file));
                     present.Add(name);
@@ -830,7 +882,7 @@ namespace AuroraThemeManager
                     {
                         using (var stream = new MemoryStream(File.ReadAllBytes(source)))
                         using (Image image = Image.FromStream(stream))
-                            Save(image, targets[i], targetType);
+                            SaveThenMove(image, targets[i], targetType);
                         File.Delete(source);
                         converted++;
                         Log.Info(Title + ": converted the image for " + Path.GetFileName(targets[i]) + " from " + sourceType + ", as that name is in use");
@@ -1188,50 +1240,70 @@ namespace AuroraThemeManager
         }
 
         /// <summary>
-        /// Zips every image folder once, on a background thread so startup isn't delayed. Written to a
-        /// temp name and renamed when done, so an interrupted zip is just remade next time.
+        /// Zips every image folder once. The folders are copied to ATM\Backups\Originals at once, before
+        /// anything can change them, and zipped from that copy on a background thread so startup isn't
+        /// delayed. The copy is deleted once the zip is made, so an interrupted zip is remade from it.
         /// </summary>
         internal static void CreateOriginalsZip()
         {
             string zipPath = OriginalsZip;
+            string snapshot = Path.Combine(Root, "Originals");
             if (File.Exists(zipPath))
+            {
+                try { if (System.IO.Directory.Exists(snapshot)) System.IO.Directory.Delete(snapshot, true); } catch { }
                 return;
+            }
+
+            try
+            {
+                if (!System.IO.Directory.Exists(snapshot))
+                {
+                    string copying = snapshot + ".partial";
+                    if (System.IO.Directory.Exists(copying))
+                        System.IO.Directory.Delete(copying, true);
+                    System.IO.Directory.CreateDirectory(copying);
+                    foreach (ImageFolder folder in ImageFolder.All)
+                        if (System.IO.Directory.Exists(folder.Directory))
+                            CopyTree(folder.Directory, Path.Combine(copying, folder.Folder));
+                    System.IO.Directory.Move(copying, snapshot);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Backups: could not copy the image folders for " + zipPath + ": " + ex.Message);
+                return;
+            }
 
             var thread = new System.Threading.Thread(() =>
             {
                 string partial = zipPath + ".partial";
                 try
                 {
-                    System.IO.Directory.CreateDirectory(Root);
                     if (File.Exists(partial))
                         File.Delete(partial);
                     int added = 0;
                     using (var stream = new FileStream(partial, FileMode.CreateNew))
                     using (var zip = new System.IO.Compression.ZipArchive(stream, System.IO.Compression.ZipArchiveMode.Create))
                     {
-                        foreach (ImageFolder folder in ImageFolder.All)
+                        foreach (string file in System.IO.Directory.GetFiles(snapshot, "*", SearchOption.AllDirectories))
                         {
-                            if (!System.IO.Directory.Exists(folder.Directory))
-                                continue;
-                            foreach (string file in System.IO.Directory.GetFiles(folder.Directory, "*", SearchOption.AllDirectories))
-                            {
-                                string relative = file.Substring(folder.Directory.Length).TrimStart('\\', '/').Replace('\\', '/');
-                                // PNG/JPEG are already compressed.
-                                string type = Path.GetExtension(file).ToLowerInvariant();
-                                var level = type == ".png" || type == ".jpg" || type == ".jpeg"
-                                    ? System.IO.Compression.CompressionLevel.NoCompression
-                                    : System.IO.Compression.CompressionLevel.Optimal;
-                                System.IO.Compression.ZipArchiveEntry entry = zip.CreateEntry(folder.Folder + "/" + relative, level);
-                                entry.LastWriteTime = File.GetLastWriteTime(file);
-                                using (Stream source = File.OpenRead(file))
-                                using (Stream target = entry.Open())
-                                    source.CopyTo(target);
-                                added++;
-                            }
+                            string relative = file.Substring(snapshot.Length).TrimStart('\\', '/').Replace('\\', '/');
+                            // PNG/JPEG are already compressed.
+                            string type = Path.GetExtension(file).ToLowerInvariant();
+                            var level = type == ".png" || type == ".jpg" || type == ".jpeg"
+                                ? System.IO.Compression.CompressionLevel.NoCompression
+                                : System.IO.Compression.CompressionLevel.Optimal;
+                            System.IO.Compression.ZipArchiveEntry entry = zip.CreateEntry(relative, level);
+                            entry.LastWriteTime = File.GetLastWriteTime(file);
+                            using (Stream source = File.OpenRead(file))
+                            using (Stream target = entry.Open())
+                                source.CopyTo(target);
+                            added++;
                         }
                     }
                     File.Move(partial, zipPath);
                     Log.Info("Backups: made " + zipPath + " with " + added + " files");
+                    System.IO.Directory.Delete(snapshot, true);
                 }
                 catch (Exception ex)
                 {

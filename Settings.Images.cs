@@ -362,7 +362,11 @@ namespace AuroraThemeManager
                 for (int i = 0; i < files.Count; i++)
                 {
                     if (generation != tab.Generation)
+                    {
+                        foreach (var pair in batch)
+                            pair.Value.Dispose();
                         return;
+                    }
                     Bitmap thumb = CachedThumb(files[i], cellSize, cache, used);
                     if (thumb != null)
                         batch.Add(new KeyValuePair<int, Bitmap>(i, thumb));
@@ -373,7 +377,9 @@ namespace AuroraThemeManager
                         RunOnUi(() => AddThumbs(tab, generation, ready));
                     }
                 }
-                PruneThumbCache(cache, used);
+                // A newer load may be writing to the cache; leave pruning to it.
+                if (generation == tab.Generation)
+                    PruneThumbCache(cache, used);
             });
         }
 
@@ -477,7 +483,10 @@ namespace AuroraThemeManager
                 if (!Directory.Exists(cache))
                     return;
                 foreach (string file in Directory.GetFiles(cache))
-                    if (!used.Contains(Path.GetFileName(file)))
+                    // A recent .tmp may be a thumbnail still being written.
+                    if (!used.Contains(Path.GetFileName(file))
+                        && !(file.EndsWith(".tmp", StringComparison.OrdinalIgnoreCase)
+                             && File.GetLastWriteTimeUtc(file) > DateTime.UtcNow.AddMinutes(-10)))
                         File.Delete(file);
             }
             catch (Exception ex)
@@ -597,8 +606,10 @@ namespace AuroraThemeManager
                 Cursor = Cursors.Default;
             }
 
-            // New images can replace placeholders.
-            int replaced = ReplacePlaceholders(tab);
+            // New images can replace placeholders; select them under their new names.
+            var renamed = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            ReplacePlaceholders(tab, renamed);
+            added = added.Select(n => renamed.ContainsKey(n) ? renamed[n] : n).ToList();
 
             LoadImageTab(tab);
             SelectImages(tab, added);
@@ -669,7 +680,8 @@ namespace AuroraThemeManager
             string file = picked[0];
             string name = Path.GetFileName(file);
 
-            // Only used when there is no default yet (rename, not swap).
+            // Only needed when there is no default yet (rename, not swap): without the saved names, a
+            // name a saved game uses could be left empty, so stop.
             HashSet<string> saved = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             try
             {
@@ -678,6 +690,11 @@ namespace AuroraThemeManager
             catch (Exception ex)
             {
                 Log.Error(tab.Folder.Title + ": could not read the saved games before setting the player default: " + ex.Message);
+                if (!File.Exists(Path.Combine(tab.Folder.Directory, tab.Folder.PlayerDefault)))
+                {
+                    ShowImageError(tab, "Can't read AuroraDB.db, so " + name + " can't be made the player default without risking an image your saved games use.  Close Aurora and try again.");
+                    return;
+                }
             }
 
             string refilled;
@@ -748,7 +765,7 @@ namespace AuroraThemeManager
         /// Replaces placeholders where spares exist. Skipped if the saves can't be read, as a used
         /// image could otherwise be renamed. Returns the count replaced.
         /// </summary>
-        private static int ReplacePlaceholders(ImageTab tab)
+        private static int ReplacePlaceholders(ImageTab tab, IDictionary<string, string> renamed = null)
         {
             HashSet<string> saved;
             try
@@ -763,7 +780,7 @@ namespace AuroraThemeManager
             try
             {
                 int remaining;
-                return tab.Folder.ReplacePlaceholders(saved, out remaining);
+                return tab.Folder.ReplacePlaceholders(saved, out remaining, renamed);
             }
             catch (Exception ex)
             {
