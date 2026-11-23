@@ -124,6 +124,64 @@ namespace AuroraThemeManager
                 (int)(color.B + (toward.B - color.B) * amount));
         }
 
+        /// <summary>A context menu in the theme's Background and Standard Text colors.</summary>
+        private ContextMenuStrip ThemedMenu()
+        {
+            Color back = config.ColorOr("Background", DesignBackground);
+            Color text = ThemeText;
+            return new ContextMenuStrip
+            {
+                BackColor = back,
+                ForeColor = text,
+                ShowImageMargin = false,
+                Renderer = new ThemedMenuRenderer(back, text),
+            };
+        }
+
+        private sealed class ThemedMenuRenderer : ToolStripProfessionalRenderer
+        {
+            private readonly Color text, disabled;
+
+            public ThemedMenuRenderer(Color back, Color text)
+                : base(new ThemedMenuColors(back))
+            {
+                this.text = text;
+                disabled = Color.FromArgb((text.R + back.R) / 2, (text.G + back.G) / 2, (text.B + back.B) / 2);
+                RoundedEdges = false;
+            }
+
+            protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
+            {
+                TextRenderer.DrawText(e.Graphics, e.Text, e.TextFont, e.TextRectangle,
+                    e.Item.Enabled ? text : disabled, e.TextFormat);
+            }
+        }
+
+        private sealed class ThemedMenuColors : ProfessionalColorTable
+        {
+            private readonly Color back, hover, line;
+
+            public ThemedMenuColors(Color back)
+            {
+                this.back = back;
+                hover = Shade(back, 0.19f);
+                line = Shade(back, 0.35f);
+                UseSystemColors = false;
+            }
+
+            public override Color ToolStripDropDownBackground { get { return back; } }
+            public override Color ImageMarginGradientBegin { get { return back; } }
+            public override Color ImageMarginGradientMiddle { get { return back; } }
+            public override Color ImageMarginGradientEnd { get { return back; } }
+            public override Color MenuBorder { get { return line; } }
+            public override Color MenuItemBorder { get { return hover; } }
+            public override Color MenuItemSelected { get { return hover; } }
+            public override Color MenuItemSelectedGradientBegin { get { return hover; } }
+            public override Color MenuItemSelectedGradientEnd { get { return hover; } }
+            public override Color SeparatorDark { get { return line; } }
+            public override Color SeparatorLight { get { return back; } }
+        }
+
         #endregion
     }
 }

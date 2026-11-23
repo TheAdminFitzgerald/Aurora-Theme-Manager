@@ -245,7 +245,7 @@ namespace AuroraThemeManager
 
         private void ShowEventMenu(EventType type, Point at)
         {
-            var menu = new ContextMenuStrip();
+            var menu = ThemedMenu();
             menu.Items.Add("Copy Colours", null, (s, e) =>
             {
                 EventColour c = eventColours.Get(type.Id);
@@ -281,7 +281,7 @@ namespace AuroraThemeManager
 
         private void ShowEventHeadingMenu(EventCategory category, List<EventType> types, Point at)
         {
-            var menu = new ContextMenuStrip();
+            var menu = ThemedMenu();
             menu.Items.Add("Select All " + category.Name, null, (s, e) => eventGrid.Select(types, false));
             menu.Items.Add("Add " + category.Name + " to Selection", null, (s, e) => eventGrid.Select(types, true));
             menu.Items.Add(new ToolStripSeparator());
