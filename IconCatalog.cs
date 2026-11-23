@@ -47,14 +47,14 @@ namespace AuroraThemeManager
 
         internal static string CacheDirectory()
         {
-            string dir = Path.Combine(Program.DataDirectory, "IconCache");
+            string dir = Path.Combine(CacheFolders.Root, "Icons");
             Directory.CreateDirectory(dir);
             return dir;
         }
 
         internal static string BackupDirectory()
         {
-            string dir = Path.Combine(Program.DataDirectory, "IconBackups");
+            string dir = Path.Combine(Program.DataDirectory, "Backups", "Icons");
             Directory.CreateDirectory(dir);
             return dir;
         }

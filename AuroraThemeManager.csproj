@@ -11,7 +11,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
     <WarningLevel>4</WarningLevel>
-    <Version>3.3.0</Version>
+    <Version>3.3.1</Version>
     <Product>Aurora Theme Manager</Product>
     <AssemblyTitle>Aurora Theme Manager</AssemblyTitle>
     <Description>Edits Aurora 4X's AuroraConfig.xml and toolbar icons</Description>
@@ -32,6 +32,9 @@
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.3" PrivateAssets="all" />
@@ -41,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Design" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -56,9 +60,15 @@
     <Compile Include="AuroraDefaults.cs" />
     <Compile Include="IconCatalog.cs" />
     <Compile Include="IconGrid.cs" />
+    <Compile Include="ThumbGrid.cs" />
+    <Compile Include="ImageFolders.cs" />
     <Compile Include="OOBSymbols.cs" />
     <Compile Include="AppIcon.cs" />
     <Compile Include="ColorPicker.cs" />
+    <Compile Include="EventColours.cs" />
+    <Compile Include="EventColourGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Settings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,7 +78,16 @@
     <Compile Include="Settings.Layout.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.Theme.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Settings.Icons.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.Images.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.Events.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
     <Compile Include="PreviewForm.cs" />
@@ -87,6 +106,8 @@
     <EmbeddedResource Include="Resources/Icons/aurora-4x-icon.ico" LogicalName="AuroraThemeManager.Resources.Icons.aurora-4x-icon.ico" />
     <EmbeddedResource Include="Resources/OOB/*.svg" LogicalName="AuroraThemeManager.Resources.OOB.%(Filename)%(Extension)" />
     <EmbeddedResource Include="Resources/Themes/*.xml" LogicalName="AuroraThemeManager.Resources.Themes.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Resources/Events/EventTypes.csv" LogicalName="AuroraThemeManager.Resources.Events.EventTypes.csv" />
+    <EmbeddedResource Include="Resources/Events/DesignSample.csv" LogicalName="AuroraThemeManager.Resources.Events.DesignSample.csv" />
     <EmbeddedResource Include="Settings.resx" />
   </ItemGroup>
 

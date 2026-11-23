@@ -359,6 +359,7 @@ namespace AuroraThemeManager
                 return;
 
             TrySaveConfig();
+            ApplyWindowTheme();
 
             bool modified = selectedTheme != null && DiffersFromTheme(selectedTheme);
             if (modified != themeModified)
